@@ -1,0 +1,106 @@
+/* Importation de la police 'Montserrat' (très utilisée dans le design moderne/gaming) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap');
+
+:root {
+    /* Palette de couleurs */
+    --bg-dark: #121212;         /* Noir profond, moins agressif que le noir pur */
+    --bg-card: #1e1e1e;         /* Gris très foncé pour les blocs de contenu */
+    --text-main: #e0e0e0;       /* Blanc cassé pour la lecture */
+    --gold-main: #d4af37;       /* Or métallique classique */
+    --gold-light: #f1c40f;      /* Or plus vif pour les accents */
+    --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%); /* Effet brillant */
+    
+    /* Effets */
+    --glow: 0 0 15px rgba(212, 175, 55, 0.3); /* Lueur dorée */
+}
+
+/* --- Base & Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    padding: 2rem;
+}
+
+/* --- Typographie --- */
+h1, h2, h3 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 900;
+}
+
+h1 {
+    font-size: 3rem;
+    /* Effet de texte doré en dégradé */
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+    display: inline-block;
+}
+
+p {
+    font-weight: 300;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+}
+
+/* --- Éléments de design (Cartes / Conteneurs) --- */
+.card {
+    background-color: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.1); /* Bordure or très subtile */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+}
+
+/* Animation au survol pour le dynamisme */
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-main);
+    box-shadow: var(--glow);
+}
+
+/* --- Boutons --- */
+.btn-gold {
+    display: inline-block;
+    padding: 12px 30px;
+    background: transparent;
+    border: 2px solid var(--gold-main);
+    color: var(--gold-main);
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px; /* Bouton arrondi moderne */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-gold:hover {
+    background: var(--gold-main);
+    color: var(--bg-dark); /* Le texte devient noir sur fond or */
+    box-shadow: var(--glow);
+}
+
+/* --- Liens --- */
+a {
+    color: var(--gold-main);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
