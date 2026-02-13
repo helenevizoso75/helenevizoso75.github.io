@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const quizQuestions = [
     { q: "Quel studio a gagné deux fois le GOTY entre 2014 et 2024 ?", a: ["FromSoftware", "Naughty Dog", "Nintendo", "Santa Monica"], correct: 0 },
     { q: "En 2018, quel jeu a perdu face à God of War ?", a: ["RDR2", "Spider-Man", "Celeste", "Assassin's Creed"], correct: 0 },
-    { q: "Quel jeu détient le record du nombre total de récompenses ?", a: ["The Witcher 3", "Elden Ring", "TLOU Part II", "Zelda BotW"], correct: 1 },
+    { q: "Quel jeu détient le record du nombre total de récompenses ?", a: ["The Witcher 3", "Clair Obscur", "TLOU Part II", "Zelda BotW"], correct: 1 },
     { q: "Quel est le seul jeu exclusivement coopératif à avoir gagné ?", a: ["A Way Out", "It Takes Two", "Portal 2", "Overwatch"], correct: 1 },
     { q: "Qui a prononcé le discours le plus long de l'histoire ?", a: ["Hideo Kojima", "Christopher Judge", "Neil Druckmann", "Geoff Keighley"], correct: 1 },
     { q: "En quelle année Overwatch a-t-il créé la surprise ?", a: ["2014", "2015", "2016", "2017"], correct: 2 },
