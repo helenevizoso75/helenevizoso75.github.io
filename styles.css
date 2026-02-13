@@ -724,3 +724,90 @@ header {
     50% { transform: scale(1.2); filter: brightness(1.5) drop-shadow(0 0 15px var(--gold-main)); }
     100% { transform: scale(1); filter: brightness(1); }
 }
+
+/* --- SECTION ANECDOTES --- */
+.anecdotes-section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.anecdotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 3rem;
+}
+
+/* LA CARTE (Conteneur de perspective) */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 200px;
+    perspective: 1000px; /* Nécessaire pour l'effet 3D */
+    cursor: pointer;
+}
+
+/* Le conteneur interne qui tourne */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+/* Rotation au survol */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Style commun Recto et Verso */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Cache l'autre face */
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* RECTO (Devant) */
+.flip-card-front {
+    background-color: var(--bg-card);
+    color: white;
+}
+
+.flip-card-front .icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.flip-card-front h3 {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* VERSO (Derrière) */
+.flip-card-back {
+    background: linear-gradient(135deg, var(--gold-dim) 0%, #000 100%);
+    color: white;
+    transform: rotateY(180deg); /* Déjà tourné au départ */
+}
+
+.flip-card-back p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.flip-card-back strong {
+    color: var(--gold-main);
+}
