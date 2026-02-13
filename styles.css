@@ -1,165 +1,225 @@
-/* --- 1. Importation --- */
-/* On garde uniquement Montserrat pour un look unifié et moderne */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap');
 
 :root {
     --bg-dark: #121212;
     --bg-card: #1e1e1e;
     --text-main: #f0f0f0;
-    --text-muted: #a0a0a0;
+    --text-muted: #888;
     --gold-main: #d4af37;
     --gold-dim: #8a7020;
     --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
 }
 
-/* --- 2. Base --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* --- Base & Reset --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     background-color: var(--bg-dark);
     color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden; /* Empêche le scroll horizontal global de la page */
+    overflow-x: hidden;
 }
 
-/* --- 3. Typographie "Sobre & Moderne" --- */
+/* --- Typographie --- */
+header { padding: 4rem 1rem 2rem 1rem; text-align: center; }
 
-/* H1 : Le Titre Principal (ex: "LES GOTY") */
 h1 {
-    font-size: 4rem; /* Très gros */
-    font-weight: 900; /* Très gras (Black) */
+    font-size: 3rem;
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: -2px; /* Lettres serrées pour un effet bloc moderne */
-    text-align: center;
-    margin: 3rem 0 1rem 0;
-    
-    /* Effet or subtil */
+    letter-spacing: -1px;
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
 }
 
-/* H2 : Les Titres de Section (ex: "La Frise Chronologique") */
 h2 {
-    font-size: 1.8rem;
-    font-weight: 400; /* Plus fin, plus élégant */
+    font-size: 1.5rem;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 4px; /* Lettres espacées (tracking) pour le raffinement */
-    text-align: center;
-    color: var(--text-main);
-    margin-bottom: 3rem;
+    letter-spacing: 3px;
+    color: #fff;
+    margin-bottom: 1rem;
     position: relative;
-    padding-bottom: 15px;
+    display: inline-block;
 }
 
-/* La petite ligne dorée sous les H2 */
+/* Petite ligne sous le H2 */
 h2::after {
     content: '';
     display: block;
-    width: 60px;
-    height: 3px;
-    background-color: var(--gold-main);
-    margin: 15px auto 0 auto; /* Centré */
+    width: 40px;
+    height: 2px;
+    background: var(--gold-main);
+    margin: 10px auto 0 auto;
 }
 
-p.intro-text {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-    font-weight: 300;
-}
-
-/* --- 4. La Timeline Responsive (Scroll Snap) --- */
+/* --- LA FRISE CHRONOLOGIQUE (Timeline) --- */
 .timeline-section {
+    position: relative;
+    padding: 2rem 0 4rem 0;
     width: 100%;
-    padding-bottom: 4rem;
 }
 
+/* Conteneur défilant */
 .timeline-container {
     display: flex;
+    align-items: flex-end; /* Aligne les éléments par le bas avant la ligne */
     overflow-x: auto;
-    padding: 2rem 5%; /* Marge sur les côtés */
-    gap: 40px;
+    padding: 4rem 50vw 4rem 2rem; /* Le padding-right géant permet de scroller jusqu'au bout */
     
-    /* LE SECRET DU MOBILE : Scroll Snap */
-    scroll-snap-type: x mandatory; /* Force l'arrêt sur les éléments */
-    -webkit-overflow-scrolling: touch; /* Fluidité sur iOS */
+    /* Mobile Scroll Snap */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
     
-    /* Masquer la barre de scroll disgracieuse sur mobile */
-    scrollbar-width: none; /* Firefox */
+    /* Masquer scrollbar */
+    scrollbar-width: none;
 }
+.timeline-container::-webkit-scrollbar { display: none; }
 
-.timeline-container::-webkit-scrollbar {
-    display: none; /* Chrome/Safari/Edge */
-}
-
-/* La ligne centrale (décoration) */
-.timeline-container::before {
-    content: '';
+/* LA LIGNE HORIZONTALE INFINIE */
+/* On utilise un div séparé dans le HTML pour garantir la longueur */
+.timeline-axis {
     position: absolute;
-    top: 55%;
+    bottom: 80px; /* Hauteur de la ligne par rapport au bas du conteneur */
     left: 0;
-    width: 200%; 
-    height: 1px; /* Plus fin pour le côté raffiné */
+    height: 2px;
     background: rgba(212, 175, 55, 0.3);
+    width: max-content; /* La ligne s'adapte à la largeur totale du contenu */
+    min-width: 100%;
     z-index: 0;
-    pointer-events: none;
 }
 
-/* --- 5. Les Cartes (Items) --- */
+/* --- BLOC ITEM (Jeu + Tige + Année) --- */
 .timeline-item {
-    flex: 0 0 auto; /* Ne pas rétrécir */
-    width: 260px; /* Largeur fixe */
+    position: relative;
+    flex: 0 0 auto;
+    width: 280px;
+    margin-right: 60px; /* Espace entre les jeux */
+    
     display: flex;
     flex-direction: column;
     align-items: center;
     
-    /* Scroll Snap : L'élément se centrera à l'arrêt du scroll */
-    scroll-snap-align: center; 
+    scroll-snap-align: center;
 }
 
+/* 1. La Carte (En haut) */
 .game-card {
     width: 100%;
-    height: 350px;
-    background-color: var(--bg-card);
-    border-radius: 4px; /* Coins moins ronds = plus moderne */
+    height: 380px;
+    background: var(--bg-card);
+    border-radius: 6px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.05); /* Bordure très subtile */
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+    z-index: 2;
+    /* Ombre portée pour détacher du fond */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .game-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity 0.3s;
+    transition: transform 0.5s ease;
 }
 
-/* Effet overlay sombre sur l'image pour lire le texte */
-.game-card::after {
-    content: '';
+/* Infos sur la carte (Overlay) */
+.game-info {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-}
-
-.game-info {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    z-index: 2;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
 }
 
 .game-info h3 {
-    font-size: 1.
+    font-size: 1.1rem;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.game-info span {
+    font-size: 0.8rem;
+    color: var(--gold-main);
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* 2. La Tige Verticale (Connecteur) */
+.stem {
+    height: 40px; /* Longueur de la tige entre la carte et la ligne */
+    width: 1px;
+    background: var(--gold-main);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+/* 3. Le Point (Sur la ligne) */
+.dot {
+    width: 12px;
+    height: 12px;
+    background: var(--bg-dark);
+    border: 2px solid var(--gold-main);
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    /* Effet lumineux statique */
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    transition: background 0.3s, transform 0.3s;
+}
+
+/* 4. L'Année (Sous la ligne) */
+.year-label {
+    margin-top: 15px; /* Espace sous le point */
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
+/* --- INTERACTIONS --- */
+.timeline-item:hover .game-card {
+    transform: translateY(-10px); /* La carte monte */
+    border-color: var(--gold-main);
+}
+.timeline-item:hover .game-card img {
+    transform: scale(1.05); /* Zoom léger image */
+}
+.timeline-item:hover .stem {
+    opacity: 1; /* La tige s'allume */
+    background: var(--gold-gradient);
+}
+.timeline-item:hover .dot {
+    background: var(--gold-main);
+    transform: scale(1.3);
+    box-shadow: 0 0 20px var(--gold-main);
+}
+.timeline-item:hover .year-label {
+    color: var(--gold-main);
+}
+
+/* --- MOBILE --- */
+@media screen and (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.2rem; }
+    
+    .timeline-container {
+        padding-right: 20px; /* Moins de marge fin */
+        padding-left: 20px;
+    }
+    
+    .timeline-item {
+        width: 80vw; /* Carte large sur mobile */
+        margin-right: 30px;
+    }
+    
+    .game-card {
+        height: 45vh; /* Hauteur relative à l'écran */
+    }
+}
