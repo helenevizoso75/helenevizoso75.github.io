@@ -638,3 +638,89 @@ header {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.3);
 }
+
+/* --- SECTION STUDIOS --- */
+.studios-section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.studios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.studio-card {
+    background: rgba(30, 30, 30, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 15px;
+    padding: 2.5rem 1.5rem;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style spécial pour FromSoftware (le leader actuel) */
+.studio-card.rank-1 {
+    border: 1px solid var(--gold-main);
+    background: rgba(212, 175, 55, 0.05);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.studio-card:hover {
+    background: rgba(30, 30, 30, 0.8);
+    border-color: var(--gold-main);
+    transform: translateY(-10px);
+}
+
+.trophy-count {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.trophy-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 5px var(--gold-main));
+}
+
+.count-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold-main);
+}
+
+.studio-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.studio-games {
+    font-size: 0.8rem;
+    color: #888;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* Animation de brillance sur FromSoftware */
+.rank-1 .trophy-icon {
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.2); filter: brightness(1.5) drop-shadow(0 0 15px var(--gold-main)); }
+    100% { transform: scale(1); filter: brightness(1); }
+}
