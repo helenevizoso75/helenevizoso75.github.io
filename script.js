@@ -139,25 +139,62 @@ animateParticles();
 
 /* --- SYSTÈME DE SONDAGE (SIMULÉ) --- */
 
-// 1. Initialisation des données (Fake Database)
-// Si l'utilisateur n'a jamais visité, on crée des stats aléatoires
+/* --- SYSTÈME DE SONDAGE (SIMULÉ AVEC HISTOIRE RÉELLE) --- */
+
 function initPollData() {
     if (!localStorage.getItem('goty_votes')) {
         const initialData = {};
-        // Liste des années de 2014 à 2025
-        const years = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014];
         
-        years.forEach(year => {
-            // On génère entre 100 et 5000 votes aléatoires
-            const randomYes = Math.floor(Math.random() * 4000) + 100; 
-            const randomNo = Math.floor(Math.random() * 1000) + 50; 
+        // Configuration des années avec des ratios réalistes
+        const configs = {
+            // 2025 : Futur (On met 50/50 pour le suspense ou un léger avantage GTA/Clair Obscur)
+            2025: { yesMin: 400, yesMax: 600, noMin: 300, noMax: 500 },
+            
+            // 2024 : Astro Bot (Aimé mais Wukong/FF7 avaient des fans) -> ~65% Oui
+            2024: { yesMin: 2000, yesMax: 2500, noMin: 1000, noMax: 1500 },
+
+            // 2023 : BG3 (Le Roi incontesté) -> ~95% Oui
+            2023: { yesMin: 4800, yesMax: 5000, noMin: 100, noMax: 300 },
+
+            // 2022 : Elden Ring (Chef d'oeuvre, mais Ragnarok existait) -> ~85% Oui
+            2022: { yesMin: 4000, yesMax: 4500, noMin: 500, noMax: 800 },
+
+            // 2021 : It Takes Two (Surprise, certains voulaient RE Village) -> ~60% Oui
+            2021: { yesMin: 1500, yesMax: 1800, noMin: 1000, noMax: 1200 },
+
+            // 2020 : TLOU2 (LA GUERRE TOTALE - Ghost of Tsushima volé ?) -> ~45% Oui (Controversé)
+            2020: { yesMin: 2000, yesMax: 2200, noMin: 2300, noMax: 2800 }, 
+
+            // 2019 : Sekiro (Respecté, mais dur) -> ~80% Oui
+            2019: { yesMin: 3000, yesMax: 3500, noMin: 600, noMax: 900 },
+
+            // 2018 : God of War (Vs Red Dead 2, duel de titans) -> ~60% Oui (Serré)
+            2018: { yesMin: 3500, yesMax: 3800, noMin: 2000, noMax: 2500 },
+
+            // 2017 : Zelda BotW (Légendaire) -> ~92% Oui
+            2017: { yesMin: 4500, yesMax: 4800, noMin: 300, noMax: 500 },
+
+            // 2016 : Overwatch (Le grand "Vol" face à Uncharted 4) -> ~40% Oui (Mal vieilli)
+            2016: { yesMin: 1200, yesMax: 1500, noMin: 2500, noMax: 3000 },
+
+            // 2015 : Witcher 3 (Le GOAT) -> ~96% Oui
+            2015: { yesMin: 4900, yesMax: 5000, noMin: 50, noMax: 200 },
+
+            // 2014 : Dragon Age (Année faible, gagné par défaut) -> ~55% Oui
+            2014: { yesMin: 1200, yesMax: 1500, noMin: 1000, noMax: 1300 }
+        };
+        
+        // Génération des données
+        for (const [year, conf] of Object.entries(configs)) {
+            const randomYes = Math.floor(Math.random() * (conf.yesMax - conf.yesMin + 1)) + conf.yesMin;
+            const randomNo = Math.floor(Math.random() * (conf.noMax - conf.noMin + 1)) + conf.noMin;
             
             initialData[year] = {
                 yes: randomYes,
                 no: randomNo,
-                userVoted: false // L'utilisateur n'a pas encore voté
+                userVoted: false
             };
-        });
+        }
         
         localStorage.setItem('goty_votes', JSON.stringify(initialData));
     }
