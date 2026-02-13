@@ -103,12 +103,13 @@ h2::after {
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centre le point et la tige par rapport à la carte */
-    justify-content: flex-end; /* Pousse le contenu vers le bas */
+    align-items: center;
+    justify-content: flex-end;
     
-    flex: 0 0 auto; /* NE PAS RÉTRÉCIR : Garde sa largeur */
-    width: 280px;
-    margin-right: 60px; /* Espace entre chaque jeu */
+    flex: 0 0 auto; 
+    width: auto; /* CHANGEMENT ICI : On laisse la largeur s'adapter */
+    min-width: 200px; /* Sécurité pour ne pas avoir de cartes trop fines */
+    margin-right: 60px;
     
     scroll-snap-align: center;
 }
