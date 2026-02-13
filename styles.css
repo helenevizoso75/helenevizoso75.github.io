@@ -106,74 +106,146 @@ a:hover {
     text-decoration: underline;
 }
 
-/* --- Section Hall of Fame --- */
-.hall-of-fame {
-    text-align: center; /* Centre le titre et le texte d'intro */
-    margin: 4rem 0;
-}
-
-/* La Grille : organise les cartes automatiquement */
-.fame-grid {
-    display: grid;
-    /* Crée des colonnes automatiques d'au moins 250px de large */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 2rem; /* Espace entre les cartes */
-    padding: 1rem 0;
-}
-
-/* Le design de la carte individuelle */
-.fame-card {
-    background: linear-gradient(145deg, #1a1a1a, #222); /* Fond subtil */
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    padding: 2rem;
-    border-radius: 8px;
-    position: relative; /* Pour positionner des éléments décoratifs si besoin */
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.fame-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: var(--gold-main);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-}
-
-/* L'année en gros et doré */
-.year {
-    font-family: 'Lora', serif; /* On utilise aussi Lora ici pour la cohérence */
-    font-size: 3rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.1); /* Presque transparent */
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    z-index: 0; /* En arrière-plan */
-    transition: color 0.3s;
-}
-
-.fame-card:hover .year {
-    color: var(--gold-main); /* S'allume au survol */
-    opacity: 0.3;
-}
-
-/* Le nom du jeu */
-.winner {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #fff;
-    margin-top: 1.5rem; /* Espace pour ne pas chevaucher l'année */
+/* --- Section Timeline --- */
+.timeline-section {
+    padding: 4rem 0;
+    text-align: center;
     position: relative;
-    z-index: 1; /* Devant l'année */
+    overflow: hidden; /* Pour éviter que ça dépasse de l'écran */
 }
 
-/* Le studio */
-.studio {
-    font-size: 0.9rem;
-    color: var(--gold-main);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 0.5rem;
+/* Le conteneur qui permet le scroll horizontal */
+.timeline-container {
+    display: flex;
+    overflow-x: auto; /* Active le scroll horizontal */
+    padding: 3rem 2rem; /* Espace autour des cartes */
+    gap: 80px; /* Espace entre chaque année */
+    position: relative;
+    
+    /* Scrollbar personnalisée (Webkit) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-main) var(--bg-dark);
+}
+
+/* Design de la scrollbar pour Chrome/Safari */
+.timeline-container::-webkit-scrollbar {
+    height: 8px;
+}
+.timeline-container::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-radius: 4px;
+}
+.timeline-container::-webkit-scrollbar-thumb {
+    background: var(--gold-main);
+    border-radius: 4px;
+}
+
+/* La ligne dorée centrale */
+/* On utilise un pseudo-élément sur le conteneur pour créer la ligne */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 55%; /* Ajuster la hauteur pour qu'elle passe sous les cartes */
+    left: 0;
+    width: 200%; /* Plus large que l'écran pour couvrir le scroll */
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-main) 10%, var(--gold-main) 90%, transparent);
+    z-index: 0;
+    opacity: 0.5;
+}
+
+/* --- Élément individuel (Année + Jeu) --- */
+.timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 220px; /* Largeur minimale d'une carte */
     position: relative;
     z-index: 1;
+}
+
+/* La carte du jeu */
+.game-card {
+    background-color: var(--bg-card);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 200px;
+    height: 320px; /* Hauteur fixe pour alignement */
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    
+    /* Flex pour positionner image et texte */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Animation au survol de la carte */
+.timeline-item:hover .game-card {
+    transform: translateY(-20px) scale(1.05); /* Monte et grossit */
+    border-color: var(--gold-main);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.game-card img {
+    width: 100%;
+    height: 220px; /* Hauteur de l'image */
+    object-fit: cover;
+    border-bottom: 2px solid var(--gold-main);
+}
+
+.game-info {
+    padding: 10px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.game-info h3 {
+    font-size: 1rem;
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.game-info span {
+    font-size: 0.8rem;
+    color: var(--gold-main);
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Le point sur la frise */
+.dot {
+    width: 16px;
+    height: 16px;
+    background-color: var(--bg-dark);
+    border: 2px solid var(--gold-main);
+    border-radius: 50%;
+    margin: 20px 0; /* Espace entre carte et point */
+    position: relative;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+}
+
+.timeline-item:hover .dot {
+    background-color: var(--gold-main);
+    box-shadow: 0 0 10px var(--gold-main);
+}
+
+/* L'année en bas */
+.year-label {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    opacity: 0.7;
+}
+
+.timeline-item:hover .year-label {
+    color: var(--gold-main);
+    opacity: 1;
 }
