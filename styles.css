@@ -319,3 +319,11 @@ h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 3px; margin-b
     pointer-events: none; /* Permet de cliquer à travers sans bloquer */
     background: transparent; /* Laisse voir la couleur de fond du body */
 }
+
+/* Pour s'assurer que la vidéo prend toute la place de l'image */
+.modal-left iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
