@@ -55,190 +55,199 @@ h2::after {
     margin: 10px auto 0 auto;
 }
 
-/* --- LA FRISE CHRONOLOGIQUE (Timeline) --- */
+/* --- LA STRUCTURE VERTICALE (ARBRE) --- */
 .timeline-section {
+    padding: 4rem 1rem;
     position: relative;
-    padding: 2rem 0 4rem 0;
-    width: 100%;
-    overflow: hidden; /* Cache ce qui dépasse */
+    overflow: visible; /* Important pour voir les ombres */
 }
 
-/* Conteneur défilant */
-.timeline-container {
-    display: flex; /* Indispensable pour l'horizontal */
-    flex-direction: row; /* Force la direction gauche -> droite */
-    flex-wrap: nowrap; /* INTERDIT le passage à la ligne */
-    align-items: flex-end; /* Aligne tout par le bas pour que les années soient au même niveau */
-    
-    overflow-x: auto; /* Active le scroll */
-    padding: 4rem 2rem; /* Espace confortable */
-    gap: 0; /* On gère l'espace avec les marges des items */
-    
-    /* Scroll fluide */
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    
-    /* Masquer scrollbar */
-    scrollbar-width: none;
-    position: relative; /* Pour que la ligne absolue se base ici */
+.timeline-tree {
+    position: relative;
+    max-width: 1000px; /* Largeur max de la frise */
+    margin: 0 auto;    /* Centré sur la page */
+    display: flex;
+    flex-direction: column;
 }
-.timeline-container::-webkit-scrollbar { display: none; }
 
-/* LA LIGNE HORIZONTALE INFINIE */
-.timeline-axis {
+/* 1. LA LIGNE CENTRALE VERTICALE */
+.timeline-tree::before {
+    content: '';
     position: absolute;
-    /* CALCUL PRÉCIS : 
-       Hauteur Année (~30px) + Marge (~15px) + Moitié du point (~8px) + Padding container (~64px)
-    */
-    bottom: 110px; /* Ajusté pour traverser les points */
-    left: 0;
-    height: 2px;
-    background: rgba(212, 175, 55, 0.5); /* Un peu plus visible */
-    width: max-content; /* S'adapte au contenu */
+    top: 0;
+    left: 50%; /* Pile au milieu */
+    width: 4px; /* Épaisseur de la ligne */
+    height: 100%;
+    background: var(--gold-dim); /* Couleur or sombre */
+    transform: translateX(-50%); /* Centrage parfait */
     z-index: 0;
 }
 
-/* --- BLOC ITEM --- */
-.timeline-item {
+/* --- BLOC ITEM (Conteneur invisible qui prend 50% de largeur) --- */
+.tree-item {
     position: relative;
+    width: 50%; /* Prend la moitié de l'écran */
+    padding: 0 40px; /* Espace pour le connecteur horizontal */
+    margin-bottom: 60px; /* Espace vertical entre les jeux */
+    box-sizing: border-box;
+}
+
+/* --- LOGIQUE ALTERNÉE (ZIG-ZAG) --- */
+
+/* LES IMPAIRS (1er, 3ème...) -> À GAUCHE */
+.tree-item:nth-child(odd) {
+    align-self: flex-start; /* Se colle à gauche */
+    text-align: right;      /* Texte aligné vers la ligne centrale */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    
-    flex: 0 0 auto; 
-    width: auto; /* CHANGEMENT ICI : On laisse la largeur s'adapter */
-    min-width: 200px; /* Sécurité pour ne pas avoir de cartes trop fines */
-    margin-right: 60px;
-    
-    scroll-snap-align: center;
+    align-items: flex-end;  /* Carte collée vers la droite du bloc (vers le centre) */
 }
 
-
-/* --- La Carte (Le cadre) --- */
-.game-card {
-    /* 1. Dimensions Fixes : Obligatoires pour l'uniformité */
-    width: 260px;       /* Largeur de la carte */
-    height: 360px;      /* Hauteur de la carte (Format Portrait affiche de jeu) */
-    
-    /* 2. Style & Forme */
-    background-color: var(--bg-card);
-    border-radius: 12px; /* Angles arrondis (ni trop carrés, ni trop ronds) */
-    overflow: hidden;    /* IMPORTANT : Coupe l'image qui dépasse des angles arrondis */
-    position: relative;
-    
-    /* 3. Bordure et Ombre */
-    border: 1px solid rgba(212, 175, 55, 0.3); /* Bordure dorée fine */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);   /* Ombre portée pour le relief */
-    
-    /* 4. Transition pour l'animation */
-    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-    z-index: 10; /* S'assure que la carte est au-dessus de la ligne */
+/* LES PAIRS (2ème, 4ème...) -> À DROITE */
+.tree-item:nth-child(even) {
+    align-self: flex-end;   /* Se colle à droite */
+    text-align: left;       /* Texte aligné vers la ligne centrale */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Carte collée vers la gauche du bloc (vers le centre) */
 }
 
-/* --- L'Image à l'intérieur --- */
-.game-card img {
-    width: 100%;        /* Prend toute la largeur du cadre */
-    height: 100%;       /* Prend toute la hauteur du cadre */
-    
-    /* LA MAGIE EST ICI : */
-    object-fit: cover;  /* Remplit le cadre en coupant les bords si besoin, sans déformer */
-    object-position: center top; /* Centre l'image mais privilégie le haut (souvent les visages/titres) */
-    
-    display: block;     /* Supprime les petits espaces blancs fantômes sous les images */
-    transition: transform 0.5s ease; /* Zoom fluide au survol */
-}
-
-/* --- L'Ombre sur le texte (pour lisibilité) --- */
-/* Crée un dégradé noir en bas de l'image pour que le texte blanc soit lisible */
-.game-card::after {
+/* --- LE CONNECTEUR HORIZONTAL (La branche) --- */
+.tree-item::after {
     content: '';
+    position: absolute;
+    top: 50px; /* Hauteur de la connexion sur la carte */
+    width: 40px; /* Longueur de la branche */
+    height: 3px;
+    background: var(--gold-main);
+    z-index: 1;
+}
+
+/* Position de la branche pour les items de GAUCHE */
+.tree-item:nth-child(odd)::after {
+    right: 0; /* Colle à la ligne centrale */
+}
+
+/* Position de la branche pour les items de DROITE */
+.tree-item:nth-child(even)::after {
+    left: 0; /* Colle à la ligne centrale */
+}
+
+/* --- LA BULLE ANNÉE (Sur la ligne centrale) --- */
+.year-bubble {
+    position: absolute;
+    top: 35px; /* Ajuster pour aligner avec la branche */
+    width: 60px;
+    height: 60px;
+    background-color: var(--bg-dark);
+    border: 3px solid var(--gold-main);
+    border-radius: 50%;
+    
+    /* Centrer le texte */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-weight: 800;
+    color: var(--gold-main);
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+}
+
+/* Position de la bulle pour GAUCHE */
+.tree-item:nth-child(odd) .year-bubble {
+    right: -30px; /* Moitié de la largeur (60/2) pour centrer sur la ligne */
+}
+/* Position de la bulle pour DROITE */
+.tree-item:nth-child(even) .year-bubble {
+    left: -30px; /* Moitié de la largeur pour centrer */
+}
+
+
+/* --- DESIGN DES CARTES (Réutilisation de ton style) --- */
+.game-card {
+    width: 280px;  /* Largeur fixe */
+    height: 180px; /* Hauteur plus petite pour le format paysage horizontal */
+    
+    /* Si tu préfères le format Portrait (Affiche), mets width: 220px et height: 320px */
+    
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.game-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Important */
+    object-position: top center;
+    transition: transform 0.5s ease;
+}
+
+/* Info Overlay */
+.game-info {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70%; /* Couvre les 70% bas de l'image */
-    background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, transparent);
-    pointer-events: none; /* Permet de cliquer à travers l'ombre */
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
 }
 
-/* --- Animation au Survol (Hover) --- */
-.timeline-item:hover .game-card {
-    transform: translateY(-15px); /* La carte remonte */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.8); /* L'ombre grandit */
-    border-color: var(--gold-main); /* La bordure devient or brillant */
+.game-info h3 {
+    font-size: 1rem;
+    color: #fff;
+    margin: 0;
 }
-
-.timeline-item:hover .game-card img {
-    transform: scale(1.1); /* L'image zoome légèrement à l'intérieur */
-}
-
-/* Ajustement des tiges pour qu'elles touchent la ligne */
-.stem {
-    height: 40px; 
-    width: 1px;
-    background: var(--gold-main);
-    opacity: 0.5;
-    margin-bottom: -2px; /* Petite astuce pour coller au point */
-}
-
-/* Le Point (Sur la ligne) */
-.dot {
-    width: 14px; /* Un peu plus gros */
-    height: 14px;
-    background: var(--bg-dark);
-    border: 2px solid var(--gold-main);
-    border-radius: 50%;
-    z-index: 2;
-    box-shadow: 0 0 10px rgba(0,0,0,1); /* Ombre noire pour masquer la ligne derrière */
-    margin-bottom: 15px; /* Espace avant l'année */
-}
-
-/* L'Année (Tout en bas) */
-.year-label {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    line-height: 1;
-}
-
-/* --- INTERACTIONS --- */
-.timeline-item:hover .game-card {
-    transform: translateY(-10px); /* La carte monte */
-    border-color: var(--gold-main);
-}
-.timeline-item:hover .game-card img {
-    transform: scale(1.05); /* Zoom léger image */
-}
-.timeline-item:hover .stem {
-    opacity: 1; /* La tige s'allume */
-    background: var(--gold-gradient);
-}
-.timeline-item:hover .dot {
-    background: var(--gold-main);
-    transform: scale(1.3);
-    box-shadow: 0 0 20px var(--gold-main);
-}
-.timeline-item:hover .year-label {
+.game-info span {
+    font-size: 0.8rem;
     color: var(--gold-main);
 }
 
-/* --- MOBILE --- */
+
+/* --- MOBILE RESPONSIVE (Tricky !) --- */
 @media screen and (max-width: 768px) {
-    h1 { font-size: 2.2rem; }
-    h2 { font-size: 1.2rem; }
+    /* Sur mobile, on met tout à droite de la ligne */
     
-    .timeline-container {
-        padding-right: 20px; /* Moins de marge fin */
-        padding-left: 20px;
+    .timeline-tree::before {
+        left: 20px; /* La ligne se déplace à gauche */
     }
     
-    .timeline-item {
-        width: 80vw; /* Carte large sur mobile */
-        margin-right: 30px;
+    .tree-item {
+        width: 100%; /* Prend toute la largeur */
+        padding-left: 60px; /* Espace à gauche pour la ligne */
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+    
+    /* On force TOUS les items à se comporter comme des items "PAIRS" (Droite) */
+    .tree-item:nth-child(odd), 
+    .tree-item:nth-child(even) {
+        align-self: flex-start;
+        align-items: flex-start; /* Tout aligné à gauche */
+        text-align: left;
+    }
+
+    /* Ajustement des connecteurs */
+    .tree-item::after {
+        left: 20px; /* Part de la ligne */
+        width: 40px;
+    }
+    
+    /* Ajustement des bulles années */
+    .tree-item:nth-child(odd) .year-bubble,
+    .tree-item:nth-child(even) .year-bubble {
+        left: -10px; /* Centré sur la ligne (20px - 30px radius) */
+        right: auto;
     }
     
     .game-card {
-        height: 45vh; /* Hauteur relative à l'écran */
+        width: 100%; /* Carte large sur mobile */
+        max-width: 300px;
+        height: 200px;
     }
 }
