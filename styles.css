@@ -60,127 +60,86 @@ h2::after {
     position: relative;
     padding: 2rem 0 4rem 0;
     width: 100%;
+    overflow: hidden; /* Cache ce qui dépasse */
 }
 
 /* Conteneur défilant */
 .timeline-container {
-    display: flex;
-    align-items: flex-end; /* Aligne les éléments par le bas avant la ligne */
-    overflow-x: auto;
-    padding: 4rem 50vw 4rem 2rem; /* Le padding-right géant permet de scroller jusqu'au bout */
+    display: flex; /* Indispensable pour l'horizontal */
+    flex-direction: row; /* Force la direction gauche -> droite */
+    flex-wrap: nowrap; /* INTERDIT le passage à la ligne */
+    align-items: flex-end; /* Aligne tout par le bas pour que les années soient au même niveau */
     
-    /* Mobile Scroll Snap */
+    overflow-x: auto; /* Active le scroll */
+    padding: 4rem 2rem; /* Espace confortable */
+    gap: 0; /* On gère l'espace avec les marges des items */
+    
+    /* Scroll fluide */
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     
     /* Masquer scrollbar */
     scrollbar-width: none;
+    position: relative; /* Pour que la ligne absolue se base ici */
 }
 .timeline-container::-webkit-scrollbar { display: none; }
 
 /* LA LIGNE HORIZONTALE INFINIE */
-/* On utilise un div séparé dans le HTML pour garantir la longueur */
 .timeline-axis {
     position: absolute;
-    bottom: 80px; /* Hauteur de la ligne par rapport au bas du conteneur */
+    /* CALCUL PRÉCIS : 
+       Hauteur Année (~30px) + Marge (~15px) + Moitié du point (~8px) + Padding container (~64px)
+    */
+    bottom: 110px; /* Ajusté pour traverser les points */
     left: 0;
     height: 2px;
-    background: rgba(212, 175, 55, 0.3);
-    width: max-content; /* La ligne s'adapte à la largeur totale du contenu */
-    min-width: 100%;
+    background: rgba(212, 175, 55, 0.5); /* Un peu plus visible */
+    width: max-content; /* S'adapte au contenu */
     z-index: 0;
 }
 
-/* --- BLOC ITEM (Jeu + Tige + Année) --- */
+/* --- BLOC ITEM --- */
 .timeline-item {
     position: relative;
-    flex: 0 0 auto;
-    width: 280px;
-    margin-right: 60px; /* Espace entre les jeux */
-    
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Centre le point et la tige par rapport à la carte */
+    justify-content: flex-end; /* Pousse le contenu vers le bas */
+    
+    flex: 0 0 auto; /* NE PAS RÉTRÉCIR : Garde sa largeur */
+    width: 280px;
+    margin-right: 60px; /* Espace entre chaque jeu */
     
     scroll-snap-align: center;
 }
 
-/* 1. La Carte (En haut) */
-.game-card {
-    width: 100%;
-    height: 380px;
-    background: var(--bg-card);
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: transform 0.4s ease, border-color 0.4s ease;
-    z-index: 2;
-    /* Ombre portée pour détacher du fond */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.game-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-/* Infos sur la carte (Overlay) */
-.game-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px;
-    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
-}
-
-.game-info h3 {
-    font-size: 1.1rem;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-.game-info span {
-    font-size: 0.8rem;
-    color: var(--gold-main);
-    font-weight: 500;
-    text-transform: uppercase;
-}
-
-/* 2. La Tige Verticale (Connecteur) */
+/* Ajustement des tiges pour qu'elles touchent la ligne */
 .stem {
-    height: 40px; /* Longueur de la tige entre la carte et la ligne */
+    height: 40px; 
     width: 1px;
     background: var(--gold-main);
     opacity: 0.5;
-    transition: opacity 0.3s;
+    margin-bottom: -2px; /* Petite astuce pour coller au point */
 }
 
-/* 3. Le Point (Sur la ligne) */
+/* Le Point (Sur la ligne) */
 .dot {
-    width: 12px;
-    height: 12px;
+    width: 14px; /* Un peu plus gros */
+    height: 14px;
     background: var(--bg-dark);
     border: 2px solid var(--gold-main);
     border-radius: 50%;
-    position: relative;
     z-index: 2;
-    /* Effet lumineux statique */
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 0 10px rgba(0,0,0,1); /* Ombre noire pour masquer la ligne derrière */
+    margin-bottom: 15px; /* Espace avant l'année */
 }
 
-/* 4. L'Année (Sous la ligne) */
+/* L'Année (Tout en bas) */
 .year-label {
-    margin-top: 15px; /* Espace sous le point */
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-muted);
-    transition: color 0.3s;
+    line-height: 1;
 }
 
 /* --- INTERACTIONS --- */
