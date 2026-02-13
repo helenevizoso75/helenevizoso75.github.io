@@ -1,31 +1,18 @@
-/* 1. On importe Montserrat (pour le texte) ET Lora (pour les titres prestigieux) */
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;700;900&display=swap');
+/* --- 1. Importation --- */
+/* On garde uniquement Montserrat pour un look unifié et moderne */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap');
 
 :root {
-    /* ... tes variables existantes (couleurs, etc.) ... */
     --bg-dark: #121212;
     --bg-card: #1e1e1e;
-    --text-main: #e0e0e0;
+    --text-main: #f0f0f0;
+    --text-muted: #a0a0a0;
     --gold-main: #d4af37;
+    --gold-dim: #8a7020;
     --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
-    --glow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
-/* 2. On applique Lora spécifiquement au H1 */
-h1 {
-    font-family: 'Lora', serif; /* C'est ici que ça change */
-    font-weight: 700;           /* Gras pour l'impact */
-    font-style: italic;         /* Optionnel : L'italique de Lora est très classe */
-    
-    font-size: 3.5rem;          /* Un peu plus gros pour Lora qui est fine */
-    background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0px 4px 10px rgba(0,0,0,0.5);
-    margin-bottom: 1.5rem;
-}
-
-/* --- Base & Reset --- */
+/* --- 2. Base --- */
 * {
     margin: 0;
     padding: 0;
@@ -36,216 +23,143 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
-    line-height: 1.6;
-    padding: 2rem;
+    overflow-x: hidden; /* Empêche le scroll horizontal global de la page */
 }
 
-/* --- Typographie --- */
-h2, h3 {
+/* --- 3. Typographie "Sobre & Moderne" --- */
+
+/* H1 : Le Titre Principal (ex: "LES GOTY") */
+h1 {
+    font-size: 4rem; /* Très gros */
+    font-weight: 900; /* Très gras (Black) */
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
-    font-weight: 900;
-}
-
-p {
-    font-weight: 300;
-    max-width: 800px;
-    margin-bottom: 1.5rem;
-}
-
-/* --- Éléments de design (Cartes / Conteneurs) --- */
-.card {
-    background-color: var(--bg-card);
-    padding: 2rem;
-    border-radius: 12px;
-    border: 1px solid rgba(212, 175, 55, 0.1); /* Bordure or très subtile */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 20px;
-}
-
-/* Animation au survol pour le dynamisme */
-.card:hover {
-    transform: translateY(-5px);
-    border-color: var(--gold-main);
-    box-shadow: var(--glow);
-}
-
-/* --- Boutons --- */
-.btn-gold {
-    display: inline-block;
-    padding: 12px 30px;
-    background: transparent;
-    border: 2px solid var(--gold-main);
-    color: var(--gold-main);
-    text-decoration: none;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 50px; /* Bouton arrondi moderne */
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.btn-gold:hover {
-    background: var(--gold-main);
-    color: var(--bg-dark); /* Le texte devient noir sur fond or */
-    box-shadow: var(--glow);
-}
-
-/* --- Liens --- */
-a {
-    color: var(--gold-main);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
-/* --- Section Timeline --- */
-.timeline-section {
-    padding: 4rem 0;
+    letter-spacing: -2px; /* Lettres serrées pour un effet bloc moderne */
     text-align: center;
-    position: relative;
-    overflow: hidden; /* Pour éviter que ça dépasse de l'écran */
+    margin: 3rem 0 1rem 0;
+    
+    /* Effet or subtil */
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Le conteneur qui permet le scroll horizontal */
+/* H2 : Les Titres de Section (ex: "La Frise Chronologique") */
+h2 {
+    font-size: 1.8rem;
+    font-weight: 400; /* Plus fin, plus élégant */
+    text-transform: uppercase;
+    letter-spacing: 4px; /* Lettres espacées (tracking) pour le raffinement */
+    text-align: center;
+    color: var(--text-main);
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+/* La petite ligne dorée sous les H2 */
+h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--gold-main);
+    margin: 15px auto 0 auto; /* Centré */
+}
+
+p.intro-text {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+/* --- 4. La Timeline Responsive (Scroll Snap) --- */
+.timeline-section {
+    width: 100%;
+    padding-bottom: 4rem;
+}
+
 .timeline-container {
     display: flex;
-    overflow-x: auto; /* Active le scroll horizontal */
-    padding: 3rem 2rem; /* Espace autour des cartes */
-    gap: 80px; /* Espace entre chaque année */
-    position: relative;
+    overflow-x: auto;
+    padding: 2rem 5%; /* Marge sur les côtés */
+    gap: 40px;
     
-    /* Scrollbar personnalisée (Webkit) */
-    scrollbar-width: thin;
-    scrollbar-color: var(--gold-main) var(--bg-dark);
+    /* LE SECRET DU MOBILE : Scroll Snap */
+    scroll-snap-type: x mandatory; /* Force l'arrêt sur les éléments */
+    -webkit-overflow-scrolling: touch; /* Fluidité sur iOS */
+    
+    /* Masquer la barre de scroll disgracieuse sur mobile */
+    scrollbar-width: none; /* Firefox */
 }
 
-/* Design de la scrollbar pour Chrome/Safari */
 .timeline-container::-webkit-scrollbar {
-    height: 8px;
-}
-.timeline-container::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-    border-radius: 4px;
-}
-.timeline-container::-webkit-scrollbar-thumb {
-    background: var(--gold-main);
-    border-radius: 4px;
+    display: none; /* Chrome/Safari/Edge */
 }
 
-/* La ligne dorée centrale */
-/* On utilise un pseudo-élément sur le conteneur pour créer la ligne */
+/* La ligne centrale (décoration) */
 .timeline-container::before {
     content: '';
     position: absolute;
-    top: 55%; /* Ajuster la hauteur pour qu'elle passe sous les cartes */
+    top: 55%;
     left: 0;
-    width: 200%; /* Plus large que l'écran pour couvrir le scroll */
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold-main) 10%, var(--gold-main) 90%, transparent);
+    width: 200%; 
+    height: 1px; /* Plus fin pour le côté raffiné */
+    background: rgba(212, 175, 55, 0.3);
     z-index: 0;
-    opacity: 0.5;
+    pointer-events: none;
 }
 
-/* --- Élément individuel (Année + Jeu) --- */
+/* --- 5. Les Cartes (Items) --- */
 .timeline-item {
+    flex: 0 0 auto; /* Ne pas rétrécir */
+    width: 260px; /* Largeur fixe */
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 220px; /* Largeur minimale d'une carte */
-    position: relative;
-    z-index: 1;
-}
-
-/* La carte du jeu */
-.game-card {
-    background-color: var(--bg-card);
-    border-radius: 10px;
-    overflow: hidden;
-    width: 200px;
-    height: 320px; /* Hauteur fixe pour alignement */
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
     
-    /* Flex pour positionner image et texte */
-    display: flex;
-    flex-direction: column;
+    /* Scroll Snap : L'élément se centrera à l'arrêt du scroll */
+    scroll-snap-align: center; 
 }
 
-/* Animation au survol de la carte */
-.timeline-item:hover .game-card {
-    transform: translateY(-20px) scale(1.05); /* Monte et grossit */
-    border-color: var(--gold-main);
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+.game-card {
+    width: 100%;
+    height: 350px;
+    background-color: var(--bg-card);
+    border-radius: 4px; /* Coins moins ronds = plus moderne */
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.05); /* Bordure très subtile */
 }
 
 .game-card img {
     width: 100%;
-    height: 220px; /* Hauteur de l'image */
+    height: 100%;
     object-fit: cover;
-    border-bottom: 2px solid var(--gold-main);
+    transition: opacity 0.3s;
+}
+
+/* Effet overlay sombre sur l'image pour lire le texte */
+.game-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
 
 .game-info {
-    padding: 10px;
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 2;
 }
 
 .game-info h3 {
-    font-size: 1rem;
-    color: #fff;
-    margin: 0;
-    line-height: 1.2;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.game-info span {
-    font-size: 0.8rem;
-    color: var(--gold-main);
-    margin-top: 5px;
-    font-style: italic;
-}
-
-/* Le point sur la frise */
-.dot {
-    width: 16px;
-    height: 16px;
-    background-color: var(--bg-dark);
-    border: 2px solid var(--gold-main);
-    border-radius: 50%;
-    margin: 20px 0; /* Espace entre carte et point */
-    position: relative;
-    z-index: 2;
-    transition: background-color 0.3s ease;
-}
-
-.timeline-item:hover .dot {
-    background-color: var(--gold-main);
-    box-shadow: 0 0 10px var(--gold-main);
-}
-
-/* L'année en bas */
-.year-label {
-    font-family: 'Lora', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-main);
-    opacity: 0.7;
-}
-
-.timeline-item:hover .year-label {
-    color: var(--gold-main);
-    opacity: 1;
-}
+    font-size: 1.
