@@ -360,3 +360,19 @@ function showResult() {
     
     document.getElementById('rank-text').innerText = `Rang : ${rank}`;
 }
+
+/* --- LOGIQUE MENU MOBILE --- */
+const menu = document.querySelector('#mobile-menu');
+const menuLinks = document.querySelector('.nav-links');
+
+// Ouvre/Ferme le menu au clic sur le burger
+menu.addEventListener('click', function() {
+    menu.classList.toggle('is-active');
+    menuLinks.classList.toggle('active');
+});
+
+// Ferme le menu quand on clique sur un lien (pour naviguer)
+document.querySelectorAll('.nav-links a').forEach(n => n.addEventListener('click', () => {
+    menu.classList.remove('is-active');
+    menuLinks.classList.remove('active');
+}));
