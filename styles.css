@@ -1,17 +1,28 @@
-/* Importation de la police 'Montserrat' (très utilisée dans le design moderne/gaming) */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap');
+/* 1. On importe Montserrat (pour le texte) ET Lora (pour les titres prestigieux) */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;700;900&display=swap');
 
 :root {
-    /* Palette de couleurs */
-    --bg-dark: #121212;         /* Noir profond, moins agressif que le noir pur */
-    --bg-card: #1e1e1e;         /* Gris très foncé pour les blocs de contenu */
-    --text-main: #e0e0e0;       /* Blanc cassé pour la lecture */
-    --gold-main: #d4af37;       /* Or métallique classique */
-    --gold-light: #f1c40f;      /* Or plus vif pour les accents */
-    --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%); /* Effet brillant */
+    /* ... tes variables existantes (couleurs, etc.) ... */
+    --bg-dark: #121212;
+    --bg-card: #1e1e1e;
+    --text-main: #e0e0e0;
+    --gold-main: #d4af37;
+    --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
+    --glow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+/* 2. On applique Lora spécifiquement au H1 */
+h1 {
+    font-family: 'Lora', serif; /* C'est ici que ça change */
+    font-weight: 700;           /* Gras pour l'impact */
+    font-style: italic;         /* Optionnel : L'italique de Lora est très classe */
     
-    /* Effets */
-    --glow: 0 0 15px rgba(212, 175, 55, 0.3); /* Lueur dorée */
+    font-size: 3.5rem;          /* Un peu plus gros pour Lora qui est fine */
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+    margin-bottom: 1.5rem;
 }
 
 /* --- Base & Reset --- */
@@ -30,21 +41,11 @@ body {
 }
 
 /* --- Typographie --- */
-h1, h2, h3 {
+h2, h3 {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 1rem;
     font-weight: 900;
-}
-
-h1 {
-    font-size: 3rem;
-    /* Effet de texte doré en dégradé */
-    background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0px 4px 10px rgba(0,0,0,0.5);
-    display: inline-block;
 }
 
 p {
@@ -103,4 +104,76 @@ a {
 a:hover {
     color: #fff;
     text-decoration: underline;
+}
+
+/* --- Section Hall of Fame --- */
+.hall-of-fame {
+    text-align: center; /* Centre le titre et le texte d'intro */
+    margin: 4rem 0;
+}
+
+/* La Grille : organise les cartes automatiquement */
+.fame-grid {
+    display: grid;
+    /* Crée des colonnes automatiques d'au moins 250px de large */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 2rem; /* Espace entre les cartes */
+    padding: 1rem 0;
+}
+
+/* Le design de la carte individuelle */
+.fame-card {
+    background: linear-gradient(145deg, #1a1a1a, #222); /* Fond subtil */
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 2rem;
+    border-radius: 8px;
+    position: relative; /* Pour positionner des éléments décoratifs si besoin */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.fame-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--gold-main);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* L'année en gros et doré */
+.year {
+    font-family: 'Lora', serif; /* On utilise aussi Lora ici pour la cohérence */
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.1); /* Presque transparent */
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 0; /* En arrière-plan */
+    transition: color 0.3s;
+}
+
+.fame-card:hover .year {
+    color: var(--gold-main); /* S'allume au survol */
+    opacity: 0.3;
+}
+
+/* Le nom du jeu */
+.winner {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 1.5rem; /* Espace pour ne pas chevaucher l'année */
+    position: relative;
+    z-index: 1; /* Devant l'année */
+}
+
+/* Le studio */
+.studio {
+    font-size: 0.9rem;
+    color: var(--gold-main);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
 }
