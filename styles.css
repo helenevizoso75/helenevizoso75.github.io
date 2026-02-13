@@ -195,3 +195,115 @@ h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 3px; margin-b
     /* Carte responsive */
     .game-card { width: 100%; max-width: 350px; }
 }
+
+
+/* --- LE POP-UP (MODAL) --- */
+.modal {
+    display: none; /* Caché par défaut */
+    position: fixed; /* Reste fixe même si on scrolle */
+    z-index: 1000; /* Au-dessus de tout le reste */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fond noir semi-transparent */
+    backdrop-filter: blur(5px); /* Flou à l'arrière-plan */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Quand la classe 'show' est ajoutée en JS */
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--bg-card);
+    width: 90%;
+    max-width: 800px;
+    border: 2px solid var(--gold-main);
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1); /* Effet de zoom à l'ouverture */
+}
+
+/* Partie Gauche (Image) */
+.modal-left {
+    flex: 1;
+    background: black;
+}
+.modal-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Partie Droite (Texte) */
+.modal-right {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-right h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--gold-main);
+    margin-bottom: 20px;
+    font-size: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+
+.modal-right p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+/* Bouton Fermer (X) */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    color: var(--gold-main);
+}
+
+/* Ajout d'un curseur sur les cartes pour montrer qu'on peut cliquer */
+.game-card {
+    cursor: pointer;
+}
+
+/* RESPONSIVE POP-UP */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        flex-direction: column; /* Image en haut, texte en bas */
+        max-height: 90vh; /* Pour ne pas dépasser l'écran */
+        overflow-y: auto; /* Scroll si trop long */
+    }
+    .modal-left { height: 200px; }
+    .modal-right { padding: 20px; }
+    .modal-right h2 { font-size: 1.5rem; }
+}
