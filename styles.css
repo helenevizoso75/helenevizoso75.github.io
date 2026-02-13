@@ -307,3 +307,15 @@ h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 3px; margin-b
     .modal-right { padding: 20px; }
     .modal-right h2 { font-size: 1.5rem; }
 }
+
+/* --- EFFET PARTICULES --- */
+#gold-dust {
+    position: fixed; /* Reste fixe même si on scrolle */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place le canvas DERRIÈRE tout le contenu */
+    pointer-events: none; /* Permet de cliquer à travers sans bloquer */
+    background: transparent; /* Laisse voir la couleur de fond du body */
+}
