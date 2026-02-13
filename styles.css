@@ -113,6 +113,65 @@ h2::after {
     scroll-snap-align: center;
 }
 
+
+/* --- La Carte (Le cadre) --- */
+.game-card {
+    /* 1. Dimensions Fixes : Obligatoires pour l'uniformité */
+    width: 260px;       /* Largeur de la carte */
+    height: 360px;      /* Hauteur de la carte (Format Portrait affiche de jeu) */
+    
+    /* 2. Style & Forme */
+    background-color: var(--bg-card);
+    border-radius: 12px; /* Angles arrondis (ni trop carrés, ni trop ronds) */
+    overflow: hidden;    /* IMPORTANT : Coupe l'image qui dépasse des angles arrondis */
+    position: relative;
+    
+    /* 3. Bordure et Ombre */
+    border: 1px solid rgba(212, 175, 55, 0.3); /* Bordure dorée fine */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);   /* Ombre portée pour le relief */
+    
+    /* 4. Transition pour l'animation */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    z-index: 10; /* S'assure que la carte est au-dessus de la ligne */
+}
+
+/* --- L'Image à l'intérieur --- */
+.game-card img {
+    width: 100%;        /* Prend toute la largeur du cadre */
+    height: 100%;       /* Prend toute la hauteur du cadre */
+    
+    /* LA MAGIE EST ICI : */
+    object-fit: cover;  /* Remplit le cadre en coupant les bords si besoin, sans déformer */
+    object-position: center top; /* Centre l'image mais privilégie le haut (souvent les visages/titres) */
+    
+    display: block;     /* Supprime les petits espaces blancs fantômes sous les images */
+    transition: transform 0.5s ease; /* Zoom fluide au survol */
+}
+
+/* --- L'Ombre sur le texte (pour lisibilité) --- */
+/* Crée un dégradé noir en bas de l'image pour que le texte blanc soit lisible */
+.game-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%; /* Couvre les 70% bas de l'image */
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, transparent);
+    pointer-events: none; /* Permet de cliquer à travers l'ombre */
+}
+
+/* --- Animation au Survol (Hover) --- */
+.timeline-item:hover .game-card {
+    transform: translateY(-15px); /* La carte remonte */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.8); /* L'ombre grandit */
+    border-color: var(--gold-main); /* La bordure devient or brillant */
+}
+
+.timeline-item:hover .game-card img {
+    transform: scale(1.1); /* L'image zoome légèrement à l'intérieur */
+}
+
 /* Ajustement des tiges pour qu'elles touchent la ligne */
 .stem {
     height: 40px; 
