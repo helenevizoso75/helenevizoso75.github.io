@@ -61,21 +61,64 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Initialisation des particules
+/* --- EFFET POUSSIÈRE D'OR (VERSION PLUS VISIBLE) --- */
+const canvas = document.getElementById('gold-dust');
+const ctx = canvas.getContext('2d');
+
+let particlesArray;
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        
+        // MODIFICATION 1 : TAILLE PLUS GROSSE
+        // Avant : de 0.5px à 2.5px
+        // Maintenant : de 2px à 5px
+        this.size = Math.random() * 3 + 2; 
+        
+        this.speedX = Math.random() * 0.6 - 0.3; // Un tout petit peu plus rapide aussi
+        this.speedY = Math.random() * 0.6 - 0.3;
+        
+        // MODIFICATION 2 : PLUS OPAQUE (BRILLANT)
+        // Avant : de 0.1 à 0.6
+        // Maintenant : de 0.4 à 0.9 (Presque solide)
+        this.opacity = Math.random() * 0.5 + 0.4;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+    }
+
+    draw() {
+        ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
 function initParticles() {
     particlesArray = [];
-    // Nombre de particules (adapté à la taille de l'écran)
-    // Moins de particules sur mobile pour la performance
-    const numberOfParticles = (canvas.width * canvas.height) / 15000; 
+    // MODIFICATION 3 : PLUS DE PARTICULES
+    // On divise par un chiffre plus petit (9000 au lieu de 15000) pour en créer plus
+    const numberOfParticles = (canvas.width * canvas.height) / 9000; 
     
     for (let i = 0; i < numberOfParticles; i++) {
         particlesArray.push(new Particle());
     }
 }
 
-// Animation boucle
 function animateParticles() {
-    // On efface le canvas à chaque image pour redessiner
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     for (let i = 0; i < particlesArray.length; i++) {
@@ -85,13 +128,11 @@ function animateParticles() {
     requestAnimationFrame(animateParticles);
 }
 
-// Redimensionnement de la fenêtre
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     initParticles();
 });
 
-// Lancement
 initParticles();
 animateParticles();
