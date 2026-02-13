@@ -276,3 +276,87 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+/* --- LOGIQUE DU QUIZ --- */
+const quizQuestions = [
+    { q: "Quel studio a gagné deux fois le GOTY entre 2014 et 2024 ?", a: ["FromSoftware", "Naughty Dog", "Nintendo", "Santa Monica"], correct: 0 },
+    { q: "En 2018, quel jeu a perdu face à God of War ?", a: ["RDR2", "Spider-Man", "Celeste", "Assassin's Creed"], correct: 0 },
+    { q: "Quel jeu détient le record du nombre total de récompenses ?", a: ["The Witcher 3", "Elden Ring", "TLOU Part II", "Zelda BotW"], correct: 1 },
+    { q: "Quel est le seul jeu exclusivement coopératif à avoir gagné ?", a: ["A Way Out", "It Takes Two", "Portal 2", "Overwatch"], correct: 1 },
+    { q: "Qui a prononcé le discours le plus long de l'histoire ?", a: ["Hideo Kojima", "Christopher Judge", "Neil Druckmann", "Geoff Keighley"], correct: 1 },
+    { q: "En quelle année Overwatch a-t-il créé la surprise ?", a: ["2014", "2015", "2016", "2017"], correct: 2 },
+    { q: "Quel jeu a gagné le premier prix GOTY en 2014 ?", a: ["Dragon Age: Inquisition", "Dark Souls 2", "The Witcher 3", "Skyrim"], correct: 0 },
+    { q: "Lequel de ces jeux FromSoftware n'a PAS eu de GOTY ?", a: ["Elden Ring", "Sekiro", "Bloodborne", "Aucun, ils ont tous gagné"], correct: 2 },
+    { q: "Baldur's Gate 3 est basé sur quel univers ?", a: ["Warhammer", "Witcher", "Donjons & Dragons", "World of Warcraft"], correct: 2 },
+    { q: "Quel jeu a gagné en 2017 avec un monde ouvert révolutionnaire ?", a: ["Horizon", "Zelda BotW", "Mario Odyssey", "PUBG"], correct: 1 },
+    { q: "Dans TLOU Part II, quel personnage incarne-t-on principalement ?", a: ["Joel", "Abby", "Ellie", "Tess"], correct: 2 },
+    { q: "Quel studio a développé Sekiro: Shadows Die Twice ?", a: ["FromSoftware", "Team Ninja", "Sucker Punch", "Capcom"], correct: 0 }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let selectedQuestions = [];
+
+function startQuiz() {
+    // Mélanger et prendre 10 questions
+    selectedQuestions = quizQuestions.sort(() => 0.5 - Math.random()).slice(0, 10);
+    currentQuestionIndex = 0;
+    score = 0;
+    document.getElementById('quiz-start').style.display = 'none';
+    document.getElementById('quiz-result').style.display = 'none';
+    document.getElementById('quiz-box').style.display = 'block';
+    showQuestion();
+}
+
+function showQuestion() {
+    const question = selectedQuestions[currentQuestionIndex];
+    document.getElementById('question-text').innerText = question.q;
+    document.getElementById('question-number').innerText = `Question ${currentQuestionIndex + 1}/10`;
+    
+    const container = document.getElementById('answer-buttons');
+    container.innerHTML = '';
+    
+    question.a.forEach((ans, i) => {
+        const btn = document.createElement('button');
+        btn.innerText = ans;
+        btn.classList.add('answer-btn');
+        btn.onclick = () => checkAnswer(i);
+        container.appendChild(btn);
+    });
+}
+
+function checkAnswer(index) {
+    const correct = selectedQuestions[currentQuestionIndex].correct;
+    const btns = document.querySelectorAll('.answer-btn');
+    
+    if (index === correct) {
+        btns[index].classList.add('correct');
+        score++;
+    } else {
+        btns[index].classList.add('wrong');
+        btns[correct].classList.add('correct');
+    }
+
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < 10) {
+            showQuestion();
+        } else {
+            showResult();
+        }
+    }, 1000);
+}
+
+function showResult() {
+    document.getElementById('quiz-box').style.display = 'none';
+    document.getElementById('quiz-result').style.display = 'block';
+    document.getElementById('final-score').innerText = `${score}/10`;
+    
+    let rank = "";
+    if (score <= 3) rank = "Noob (Achetez une console !)";
+    else if (score <= 6) rank = "Casual Gamer (Pas mal)";
+    else if (score <= 9) rank = "Expert (Respect)";
+    else rank = "LÉGENDE DES GAME AWARDS";
+    
+    document.getElementById('rank-text').innerText = `Rang : ${rank}`;
+}
