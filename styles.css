@@ -535,3 +535,106 @@ header {
 .nominee-card:hover::before {
     height: 100%; /* S'affiche au survol */
 }
+
+/* --- SONDAGE (POLL) --- */
+.poll-container {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 15px; /* Espace sous la carte */
+    width: 280px; /* Même largeur que la carte */
+    backdrop-filter: blur(5px);
+    text-align: center;
+    position: relative;
+    z-index: 5;
+}
+
+.poll-question {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Boutons de vote */
+.poll-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-vote {
+    flex: 1;
+    padding: 8px 0;
+    border: 1px solid var(--gold-main);
+    background: transparent;
+    color: var(--gold-main);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.btn-vote:hover {
+    background: var(--gold-main);
+    color: #000;
+    box-shadow: 0 0 10px var(--gold-main);
+}
+
+.btn-vote.no {
+    border-color: #ff4d4d; /* Rouge pour le Non */
+    color: #ff4d4d;
+}
+.btn-vote.no:hover {
+    background: #ff4d4d;
+    color: white;
+    box-shadow: 0 0 10px #ff4d4d;
+}
+
+/* Résultats (Barre de progression) */
+.poll-results {
+    margin-top: 5px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #d4af37, #f1c40f);
+    width: 0%; /* Sera changé en JS */
+    transition: width 1s ease-in-out;
+}
+
+.poll-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+/* Responsive Mobile */
+@media screen and (max-width: 768px) {
+    .poll-container {
+        width: 100%; /* S'adapte au mobile */
+    }
+}
+
+/* Ajustement du sondage quand il est dans la section Finalistes */
+.nominee-card .poll-container {
+    width: 100%; /* Prend toute la largeur de la carte */
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+}

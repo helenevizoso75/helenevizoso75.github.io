@@ -136,3 +136,106 @@ window.addEventListener('resize', () => {
 
 initParticles();
 animateParticles();
+
+/* --- SYSTÈME DE SONDAGE (SIMULÉ) --- */
+
+// 1. Initialisation des données (Fake Database)
+// Si l'utilisateur n'a jamais visité, on crée des stats aléatoires
+function initPollData() {
+    if (!localStorage.getItem('goty_votes')) {
+        const initialData = {};
+        // Liste des années de 2014 à 2025
+        const years = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014];
+        
+        years.forEach(year => {
+            // On génère entre 100 et 5000 votes aléatoires
+            const randomYes = Math.floor(Math.random() * 4000) + 100; 
+            const randomNo = Math.floor(Math.random() * 1000) + 50; 
+            
+            initialData[year] = {
+                yes: randomYes,
+                no: randomNo,
+                userVoted: false // L'utilisateur n'a pas encore voté
+            };
+        });
+        
+        localStorage.setItem('goty_votes', JSON.stringify(initialData));
+    }
+}
+
+// 2. Fonction pour récupérer les données
+function getPollData() {
+    return JSON.parse(localStorage.getItem('goty_votes'));
+}
+
+// 3. Fonction pour afficher les résultats
+function displayResults(year) {
+    const data = getPollData();
+    const yearData = data[year];
+    const total = yearData.yes + yearData.no;
+    
+    // Calcul pourcentage
+    const percentYes = Math.round((yearData.yes / total) * 100);
+    const percentNo = 100 - percentYes;
+
+    // Sélection des éléments HTML
+    const container = document.querySelector(`.poll-container[data-year="${year}"]`);
+    const buttons = container.querySelector('.poll-buttons');
+    const results = container.querySelector('.poll-results');
+    const fill = container.querySelector('.progress-fill');
+    const statYes = container.querySelector('.stat-yes');
+    const statNo = container.querySelector('.stat-no');
+
+    // Masquer boutons, afficher résultats
+    buttons.style.display = 'none';
+    results.style.display = 'block';
+
+    // Animation de la barre
+    setTimeout(() => {
+        fill.style.width = `${percentYes}%`;
+    }, 100);
+
+    // Mise à jour textes
+    statYes.textContent = `${percentYes}% OUI (${yearData.yes})`;
+    statNo.textContent = `${percentNo}% NON (${yearData.no})`;
+}
+
+// 4. Fonction appelée au clic sur le bouton (définie dans le HTML onclick)
+window.vote = function(year, choice) {
+    const data = getPollData();
+    
+    // Si déjà voté, on arrête
+    if (data[year].userVoted) return;
+
+    // Ajout du vote
+    if (choice === 'yes') {
+        data[year].yes++;
+    } else {
+        data[year].no++;
+    }
+    
+    // Marquer comme voté
+    data[year].userVoted = true;
+
+    // Sauvegarde
+    localStorage.setItem('goty_votes', JSON.stringify(data));
+
+    // Affichage
+    displayResults(year);
+}
+
+// 5. Au chargement de la page : Vérifier qui a déjà voté
+document.addEventListener('DOMContentLoaded', () => {
+    initPollData(); // Créer les fausses données si besoin
+    const data = getPollData();
+    
+    // Pour chaque sondage sur la page
+    document.querySelectorAll('.poll-container').forEach(container => {
+        const year = container.getAttribute('data-year');
+        
+        // Si l'utilisateur a déjà voté pour cette année, on affiche direct les résultats
+        if (data[year] && data[year].userVoted) {
+            displayResults(year);
+        }
+    });
+});

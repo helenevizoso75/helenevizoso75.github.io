@@ -160,7 +160,7 @@
             <article class="tree-item"
                 data-title="Overwatch"
                 data-video="FqnKB22pOC0"
-                data-desc="Le Hero Shooter qui a conquis le monde. (plus maintenant branchez-vous Marvel Rivals svp) Blizzard propose un jeu de tir en équipe au casting charismatique.">
+                data-desc="Le Hero Shooter qui a conquis le monde (plus maintenant branchez-vous Marvel Rivals svp). Blizzard propose un jeu de tir en équipe au casting charismatique.">
                 <div class="game-card">
                     <img src="img/OVERWATCH.webp" alt="Overwatch">
                     <div class="game-info">
@@ -202,62 +202,344 @@
         </div>
     </section>
     <section id="nominees" class="nominees-section">
-    <div class="section-header">
-        <h2>Les Finalistes Légendaires</h2>
-        <p>Ils ont marqué l'année mais n'ont pas remporté la couronne.</p>
-    </div>
-
-    <div class="nominees-grid">
-        
-        <div class="nominee-card">
-            <div class="card-header">
-                <span class="year-badge">2022</span>
-                <span class="winner-reminder">Vainqueur : Elden Ring</span>
-            </div>
-            <div class="nominee-list">
-                <h3>Les Nommés</h3>
-                <ul>
-                    <li class="highlight">God of War Ragnarök</li>
-                    <li>A Plague Tale: Requiem</li>
-                    <li>Horizon Forbidden West</li>
-                    <li>Stray</li>
-                    <li>Xenoblade Chronicles 3</li>
-                </ul>
-            </div>
+        <div class="section-header">
+            <h2>Les Finalistes Légendaires</h2>
+            <p>Ils ont marqué l'année mais n'ont pas remporté la couronne.</p>
         </div>
 
-        <div class="nominee-card">
-            <div class="card-header">
-                <span class="year-badge">2018</span>
-                <span class="winner-reminder">Vainqueur : God of War</span>
+        <div class="nominees-grid">
+            
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2025</span>
+                    <span class="winner-reminder">Vainqueur : Clair Obscur</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés (Prédictions)</h3>
+                    <ul>
+                        <li class="highlight">Death Stranding 2: On the Beach</li>
+                        <li>Hades II</li>
+                        <li>Donkey Kong Bananza</li>
+                        <li>Hollow Knight: Silksong</li>
+                        <li>Kingdom Come: Deliverance II</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2025">
+                    <p class="poll-question">Clair Obscur méritera-t-il sa victoire ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2025', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2025', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
             </div>
-            <div class="nominee-list">
-                <h3>Les Nommés</h3>
-                <ul>
-                    <li class="highlight">Red Dead Redemption 2</li>
-                    <li>Assassin's Creed Odyssey</li>
-                    <li>Celeste</li>
-                    <li>Marvel's Spider-Man</li>
-                    <li>Monster Hunter: World</li>
-                </ul>
-            </div>
-        </div>
 
-        <div class="nominee-card">
-            <div class="card-header">
-                <span class="year-badge">2016</span>
-                <span class="winner-reminder">Vainqueur : Overwatch</span>
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2024</span>
+                    <span class="winner-reminder">Vainqueur : Astro Bot</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Final Fantasy VII Rebirth</li>
+                        <li>Balatro</li>
+                        <li>Black Myth: Wukong</li>
+                        <li>Elden Ring: Shadow of the Erdtree</li>
+                        <li>Metaphor: ReFantazio</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2024">
+                    <p class="poll-question">Astro Bot méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2024', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2024', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
             </div>
-            <div class="nominee-list">
-                <h3>Les Nommés</h3>
-                <ul>
-                    <li class="highlight">Uncharted 4: A Thief's End</li>
-                    <li>Doom</li>
-                    <li>Inside</li>
-                    <li>Titanfall 2</li>
-                </ul>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2023</span>
+                    <span class="winner-reminder">Vainqueur : Baldur's Gate 3</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">The Legend of Zelda: Tears of the Kingdom</li>
+                        <li>Alan Wake 2</li>
+                        <li>Marvel's Spider-Man 2</li>
+                        <li>Resident Evil 4 (Remake)</li>
+                        <li>Super Mario Bros. Wonder</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2023">
+                    <p class="poll-question">BG3 méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2023', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2023', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2022</span>
+                    <span class="winner-reminder">Vainqueur : Elden Ring</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">God of War Ragnarök</li>
+                        <li>A Plague Tale: Requiem</li>
+                        <li>Horizon Forbidden West</li>
+                        <li>Stray</li>
+                        <li>Xenoblade Chronicles 3</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2022">
+                    <p class="poll-question">Elden Ring méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2022', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2022', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2021</span>
+                    <span class="winner-reminder">Vainqueur : It Takes Two</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Resident Evil Village</li>
+                        <li>Deathloop</li>
+                        <li>Metroid Dread</li>
+                        <li>Psychonauts 2</li>
+                        <li>Ratchet & Clank: Rift Apart</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2021">
+                    <p class="poll-question">It Takes Two méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2021', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2021', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2020</span>
+                    <span class="winner-reminder">Vainqueur : TLOU Part II</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Ghost of Tsushima</li>
+                        <li>Animal Crossing: New Horizons</li>
+                        <li>Doom Eternal</li>
+                        <li>Final Fantasy VII Remake</li>
+                        <li>Hades</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2020">
+                    <p class="poll-question">TLOU2 méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2020', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2020', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2019</span>
+                    <span class="winner-reminder">Vainqueur : Sekiro</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Death Stranding</li>
+                        <li>Control</li>
+                        <li>Resident Evil 2</li>
+                        <li>Super Smash Bros. Ultimate</li>
+                        <li>The Outer Worlds</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2019">
+                    <p class="poll-question">Sekiro méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2019', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2019', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2018</span>
+                    <span class="winner-reminder">Vainqueur : God of War</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Red Dead Redemption 2</li>
+                        <li>Assassin's Creed Odyssey</li>
+                        <li>Celeste</li>
+                        <li>Marvel's Spider-Man</li>
+                        <li>Monster Hunter: World</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2018">
+                    <p class="poll-question">Kratos méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2018', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2018', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2017</span>
+                    <span class="winner-reminder">Vainqueur : Zelda BotW</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Super Mario Odyssey</li>
+                        <li>Horizon Zero Dawn</li>
+                        <li>Persona 5</li>
+                        <li>PUBG</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2017">
+                    <p class="poll-question">Zelda méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2017', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2017', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2016</span>
+                    <span class="winner-reminder">Vainqueur : Overwatch</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Uncharted 4: A Thief's End</li>
+                        <li>Doom</li>
+                        <li>Inside</li>
+                        <li>Titanfall 2</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2016">
+                    <p class="poll-question">Overwatch méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2016', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2016', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2015</span>
+                    <span class="winner-reminder">Vainqueur : The Witcher 3</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Fallout 4</li>
+                        <li>Bloodborne</li>
+                        <li>Metal Gear Solid V</li>
+                        <li>Super Mario Maker</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2015">
+                    <p class="poll-question">Geralt méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2015', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2015', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nominee-card">
+                <div class="card-header">
+                    <span class="year-badge">2014</span>
+                    <span class="winner-reminder">Vainqueur : Dragon Age</span>
+                </div>
+                <div class="nominee-list">
+                    <h3>Les Nommés</h3>
+                    <ul>
+                        <li class="highlight">Middle-earth: Shadow of Mordor</li>
+                        <li>Bayonetta 2</li>
+                        <li>Dark Souls II</li>
+                        <li>Hearthstone</li>
+                    </ul>
+                </div>
+                <div class="poll-container" data-year="2014">
+                    <p class="poll-question">Dragon Age méritait-il de gagner ?</p>
+                    <div class="poll-buttons">
+                        <button class="btn-vote yes" onclick="vote('2014', 'yes')">Oui</button>
+                        <button class="btn-vote no" onclick="vote('2014', 'no')">Non</button>
+                    </div>
+                    <div class="poll-results" style="display: none;">
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="poll-stats"><span class="stat-yes"></span><span class="stat-no"></span></div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>
