@@ -415,3 +415,123 @@ header {
 #hall-of-fame {
     scroll-margin-top: 100px;
 }
+
+/* --- SECTION NOMINÉS --- */
+.nominees-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1; /* Pour être au-dessus des particules */
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header p {
+    color: #888;
+    font-style: italic;
+}
+
+/* LA GRILLE (Responsive) */
+.nominees-grid {
+    display: grid;
+    /* Crée des colonnes automatiques (min 300px) */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* LA CARTE INDIVIDUELLE */
+.nominee-card {
+    background: rgba(30, 30, 30, 0.6); /* Fond semi-transparent */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px); /* Effet de flou derrière la carte */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet Hover : Bordure Or + Légère montée */
+.nominee-card:hover {
+    border-color: var(--gold-main);
+    transform: translateY(-5px);
+    background: rgba(30, 30, 30, 0.9);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+}
+
+/* En-tête de la carte */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.year-badge {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+}
+
+.winner-reminder {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--gold-main);
+    border: 1px solid var(--gold-main);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* La liste */
+.nominee-list h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1rem;
+}
+
+.nominee-list ul {
+    list-style: none;
+}
+
+.nominee-list li {
+    padding: 8px 0;
+    color: #ccc;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: padding-left 0.2s;
+}
+
+/* Le "Rival" principal en plus visible */
+.nominee-list li.highlight {
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Petite animation au survol de la liste */
+.nominee-card:hover .nominee-list li:hover {
+    color: var(--gold-main);
+    padding-left: 10px; /* Le texte se décale vers la droite */
+}
+
+/* Décoration : Un petit trait doré sur le côté gauche au survol */
+.nominee-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0; /* Caché au début */
+    background: var(--gold-main);
+    transition: height 0.3s ease;
+}
+
+.nominee-card:hover::before {
+    height: 100%; /* S'affiche au survol */
+}
